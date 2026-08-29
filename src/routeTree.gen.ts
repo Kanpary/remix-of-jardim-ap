@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ApiPublicWebhooksOnixpayRouteImport } from './routes/api/public/webhooks/onixpay'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicWebhooksOnixpayRoute =
   ApiPublicWebhooksOnixpayRouteImport.update({
     id: '/api/public/webhooks/onixpay',
@@ -33,30 +39,34 @@ const ApiPublicWebhooksOnixpayRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRoute
   '/api/public/webhooks/onixpay': typeof ApiPublicWebhooksOnixpayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRoute
   '/api/public/webhooks/onixpay': typeof ApiPublicWebhooksOnixpayRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRoute
   '/api/public/webhooks/onixpay': typeof ApiPublicWebhooksOnixpayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/api/public/webhooks/onixpay'
+  fullPaths: '/' | '/auth' | '/dashboard' | '/api/public/webhooks/onixpay'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/api/public/webhooks/onixpay'
-  id: '__root__' | '/' | '/auth' | '/api/public/webhooks/onixpay'
+  to: '/' | '/auth' | '/dashboard' | '/api/public/webhooks/onixpay'
+  id: '__root__' | '/' | '/auth' | '/dashboard' | '/api/public/webhooks/onixpay'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  DashboardRoute: typeof DashboardRoute
   ApiPublicWebhooksOnixpayRoute: typeof ApiPublicWebhooksOnixpayRoute
 }
 
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/webhooks/onixpay': {
       id: '/api/public/webhooks/onixpay'
       path: '/api/public/webhooks/onixpay'
@@ -89,6 +106,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  DashboardRoute: DashboardRoute,
   ApiPublicWebhooksOnixpayRoute: ApiPublicWebhooksOnixpayRoute,
 }
 export const routeTree = rootRouteImport
